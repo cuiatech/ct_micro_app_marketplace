@@ -1,0 +1,48 @@
+name: flut_micro_app_marketplace
+description: 
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: '>=2.19.1 <3.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dependency_overrides:
+  flut_micro_app_help_center:
+    path: ../flut_micro_app_help_center
+    # git:
+    #   url: "https://github.com/cuiatech/flut_micro_app_help_center.git"
+    #   ref: "master"
+  flut_micro_commons_dependencies:
+    path: ../flut_micro_commons_dependencies
+    # git:
+    #   url: "https://github.com/cuiatech/flut_micro_commons_dependencies.git"
+    #   ref: "master"
+  flut_micro_commons_shared:
+    path: ../flut_micro_commons_shared
+    # git:
+    #   url: "https://github.com/cuiatech/flut_micro_commons_shared.git"
+    #   ref: "master"
+  flut_micro_commons_ds:
+    path: ../flut_micro_commons_ds
+    # git:
+    #   url: "https://github.com/cuiatech/flut_micro_commons_ds.git"
+    #   ref: "master"
+  flut_micro_commons_auth:
+    path: ../flut_micro_commons_auth
+    # git:
+    #   url: "https://github.com/cuiatech/flut_micro_commons_auth.git"
+    #   ref: "master"
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: 2.0.0
+
+flutter:
+
+
