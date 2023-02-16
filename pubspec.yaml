@@ -1,4 +1,4 @@
-name: flut_micro_app_marketplace
+name: ct_micro_app_marketplace
 description: 
 version: 0.0.1
 homepage:
@@ -12,30 +12,30 @@ dependencies:
     sdk: flutter
 
 dependency_overrides:
-  flut_micro_app_help_center:
-    path: ../flut_micro_app_help_center
+  ct_micro_app_help_center:
+    path: ../ct_micro_app_help_center
     # git:
-    #   url: "https://github.com/cuiatech/flut_micro_app_help_center.git"
+    #   url: "https://github.com/cuiatech/ct_micro_app_help_center.git"
     #   ref: "master"
-  flut_micro_commons_dependencies:
-    path: ../flut_micro_commons_dependencies
+  ct_micro_commons_dependencies:
+    path: ../ct_micro_commons_dependencies
     # git:
-    #   url: "https://github.com/cuiatech/flut_micro_commons_dependencies.git"
+    #   url: "https://github.com/cuiatech/ct_micro_commons_dependencies.git"
     #   ref: "master"
-  flut_micro_commons_shared:
-    path: ../flut_micro_commons_shared
+  ct_micro_commons_shared:
+    path: ../ct_micro_commons_shared
     # git:
-    #   url: "https://github.com/cuiatech/flut_micro_commons_shared.git"
+    #   url: "https://github.com/cuiatech/ct_micro_commons_shared.git"
     #   ref: "master"
-  flut_micro_commons_ds:
-    path: ../flut_micro_commons_ds
+  ct_micro_commons_ds:
+    path: ../ct_micro_commons_ds
     # git:
-    #   url: "https://github.com/cuiatech/flut_micro_commons_ds.git"
+    #   url: "https://github.com/cuiatech/ct_micro_commons_ds.git"
     #   ref: "master"
-  flut_micro_commons_auth:
-    path: ../flut_micro_commons_auth
+  ct_micro_commons_auth:
+    path: ../ct_micro_commons_auth
     # git:
-    #   url: "https://github.com/cuiatech/flut_micro_commons_auth.git"
+    #   url: "https://github.com/cuiatech/ct_micro_commons_auth.git"
     #   ref: "master"
 
 dev_dependencies:

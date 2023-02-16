@@ -1,9 +1,9 @@
 // ignore_for_file: depend_on_referenced_packages, must_be_immutable, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flut_micro_commons_ds/flut_micro_commons_ds.dart';
-import 'package:flut_micro_app_help_center/app/presentation/help_center_widget/help_center_widget.dart';
-import 'package:flut_micro_commons_dependencies/flut_micro_commons_dependencies.dart';
+import 'package:ct_micro_commons_ds/ct_micro_commons_ds.dart';
+import 'package:ct_micro_app_help_center/app/presentation/help_center_widget/help_center_widget.dart';
+import 'package:ct_micro_commons_dependencies/ct_micro_commons_dependencies.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -93,7 +93,7 @@ class ItemWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Image.asset(
                     '/assets/images/system_page.png',
-                    package: 'flut_micro_commons_shared',
+                    package: 'ct_micro_commons_shared',
                     width: 168,
                   ),
                 ),
