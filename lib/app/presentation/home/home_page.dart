@@ -1,10 +1,13 @@
 // ignore_for_file: depend_on_referenced_packages, must_be_immutable, use_build_context_synchronously
 
+import 'package:ct_micro_app_marketplace/app/marketplace_routers.dart';
 import 'package:ct_micro_app_marketplace/app/presentation/home/home_controller.dart';
+import 'package:ct_micro_app_marketplace/app/presentation/home/widgets/body_list.dart';
 import 'package:flutter/material.dart';
 import 'package:ct_micro_commons_ds/ct_micro_commons_ds.dart';
 import 'package:ct_micro_app_help_center/app/presentation/help_center_widget/help_center_widget.dart';
 import 'package:ct_micro_commons_dependencies/ct_micro_commons_dependencies.dart';
+import 'package:ct_micro_commons_shared/shared/domain/models/dto/app_dto.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,16 +20,6 @@ class _HomePageState extends State<HomePage> {
   final _controller = Modular.get<HomeController>();
 
   @override
-  void initState() {
-    super.initState();
-    getAllApps();
-  }
-
-  Future getAllApps() async {
-    await _controller.getAllApps();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CuiaAppBar(title: "Store"),
@@ -36,11 +29,11 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CuiaTextFormField(
-                controller: TextEditingController(),
-                hintText: "Pesquisar",
-              ),
-              const CategoriesWidget(),
+              // CuiaTextFormField(
+              //   controller: TextEditingController(),
+              //   hintText: "Pesquisar",
+              // ),
+              // const CategoriesWidget(),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: FutureBuilder(
@@ -49,7 +42,13 @@ class _HomePageState extends State<HomePage> {
                       switch (snapshot.connectionState) {
                         case ConnectionState.none:
                         case ConnectionState.waiting:
-                          return const CircularProgressIndicator();
+                          return Skeleton(
+                            isLoading: true,
+                            skeleton: SkeletonItem(
+                              child: MarketplaceBodyList.loading(12),
+                            ),
+                            child: Container(),
+                          );
                         case ConnectionState.active:
                         case ConnectionState.done:
                           if (snapshot.hasError) {
@@ -64,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                                   md: 4,
                                   sm: 6,
                                   xs: 6,
-                                  child: ItemWidget(),
+                                  child: ItemWidget(appDto: e),
                                 );
                               }).toList(),
                             );
@@ -88,14 +87,15 @@ class _HomePageState extends State<HomePage> {
 class ItemWidget extends StatelessWidget {
   const ItemWidget({
     super.key,
+    required this.appDto,
   });
+
+  final AppDto appDto;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 218,
-      height: 271,
-      margin: const EdgeInsets.only(bottom: 10),
+    return InkWell(
+      onTap: () => MarketplaceRouters.goToDetails(appDto.id),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -103,7 +103,7 @@ class ItemWidget extends StatelessWidget {
         children: [
           Container(
             width: 228,
-            height: 271,
+            height: 291,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
@@ -118,34 +118,42 @@ class ItemWidget extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Image.asset(
-                    '/assets/images/system_page.png',
-                    package: 'ct_micro_commons_shared',
-                    width: 168,
-                  ),
+                  child: appDto.imageUrl != ""
+                      ? Image.network(appDto.imageUrl)
+                      : Image.asset(
+                          '/assets/images/system_page.png',
+                          package: 'ct_micro_commons_shared',
+                          width: 168,
+                        ),
                 ),
                 const SizedBox(height: 3),
-                SizedBox(
-                  width: 228,
-                  child: Text(
-                    "Syncro",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontSize: 22,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 3),
-                SizedBox(
-                  width: 208,
-                  child: Text(
-                    "Síncronismo de produtos nos e-commerces",
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      color: const Color(0xff8f8f8f),
-                      fontSize: 14,
-                    ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: 228,
+                        child: Text(
+                          appDto.title,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                            color: Colors.black,
+                            fontSize: 22,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      SizedBox(
+                        width: 208,
+                        child: Text(
+                          appDto.description,
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                            color: const Color(0xff8f8f8f),
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 3),

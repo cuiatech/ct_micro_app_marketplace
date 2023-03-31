@@ -10,7 +10,6 @@ final $HomeController = Bind.singleton(
 
 class HomeController {
   HomeController(this._getAllAppsUsecase);
-
   final GetAllAppsUsecase _getAllAppsUsecase;
 
   List<AppDto> apps = [];
@@ -19,5 +18,9 @@ class HomeController {
     var res = await _getAllAppsUsecase();
     apps = res.data as List<AppDto>;
     return res.data;
+  }
+
+  AppDto getDetails(int id) {
+    return apps.firstWhere((e) => e.id == id);
   }
 }
