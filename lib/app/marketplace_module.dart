@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:ct_micro_app_marketplace/app/marketplace_routers.dart';
+import 'package:ct_micro_app_marketplace/app/presentation/home/home_controller.dart';
 import 'package:ct_micro_app_marketplace/app/presentation/home/home_page.dart';
 import 'package:ct_micro_commons_dependencies/ct_micro_commons_dependencies.dart';
 
@@ -8,6 +9,7 @@ class MarketplaceModule extends Module {
   @override
   final List<Bind> binds = [
     // Controllers
+    $HomeController,
   ];
 
   @override

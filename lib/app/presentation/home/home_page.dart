@@ -1,5 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages, must_be_immutable, use_build_context_synchronously
 
+import 'package:ct_micro_app_marketplace/app/presentation/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:ct_micro_commons_ds/ct_micro_commons_ds.dart';
 import 'package:ct_micro_app_help_center/app/presentation/help_center_widget/help_center_widget.dart';
@@ -13,10 +14,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final _controller = Modular.get<HomeController>();
+
+  @override
+  void initState() {
+    super.initState();
+    getAllApps();
+  }
+
+  Future getAllApps() async {
+    await _controller.getAllApps();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CuiaAppBar(title: "Marketplace"),
+      appBar: const CuiaAppBar(title: "Store"),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 40),
@@ -30,20 +43,34 @@ class _HomePageState extends State<HomePage> {
               const CategoriesWidget(),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
-                child: CuiaGridRow(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: List.generate(
-                    26,
-                    (index) => CuiaGridColumn(
-                      xl: 2,
-                      lg: 3,
-                      md: 4,
-                      sm: 6,
-                      xs: 6,
-                      child: ItemWidget(),
-                    ),
-                  ),
-                ),
+                child: FutureBuilder(
+                    future: _controller.getAllApps(),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                        case ConnectionState.waiting:
+                          return const CircularProgressIndicator();
+                        case ConnectionState.active:
+                        case ConnectionState.done:
+                          if (snapshot.hasError) {
+                            return Container();
+                          } else {
+                            return CuiaGridRow(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: snapshot.data!.map((e) {
+                                return CuiaGridColumn(
+                                  xl: 2,
+                                  lg: 3,
+                                  md: 4,
+                                  sm: 6,
+                                  xs: 6,
+                                  child: ItemWidget(),
+                                );
+                              }).toList(),
+                            );
+                          }
+                      }
+                    }),
               ),
             ],
           ),

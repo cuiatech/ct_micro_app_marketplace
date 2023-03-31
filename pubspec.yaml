@@ -37,6 +37,11 @@ dependency_overrides:
     # git:
     #   url: "https://github.com/cuiatech/ct_micro_commons_auth.git"
     #   ref: "master"
+  ct_micro_commons_core_app:
+    path: ../ct_micro_commons_core_app
+    # git:
+    #   url: "https://github.com/cuiatech/ct_micro_commons_core_app.git"
+    #   ref: "master"
 
 dev_dependencies:
   flutter_test:

@@ -3,7 +3,7 @@
 import 'package:ct_micro_commons_dependencies/ct_micro_commons_dependencies.dart';
 
 class MarketplaceRouters {
-  static goToIndex() => Modular.to.navigate('/marketplace${RoutersName.index}');
+  static goToIndex() => Modular.to.navigate('/store${RoutersName.index}');
 }
 
 class RoutersName {
