@@ -179,7 +179,7 @@ class ItemWidget extends StatelessWidget {
                       ),
                       const SizedBox(height: 3),
                       Text(
-                        "R\$ 99.999,99",
+                        "R\$ ${appDto.amount.toStringAsFixed(2).replaceAll(",", "").replaceAll(".", ",")}",
                         textAlign: TextAlign.right,
                         style: GoogleFonts.poppins(
                           color: const Color(0xff007dfa),
