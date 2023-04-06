@@ -6,9 +6,11 @@ class MarketplaceRouters {
   static goToIndex() => Modular.to.navigate('/store${RoutersName.index}');
   static goToDetails(int id) =>
       Modular.to.navigate('/store${RoutersName.details}/$id');
+  static goToCheckout() => Modular.to.navigate('/store${RoutersName.checkout}');
 }
 
 class RoutersName {
   static String index = "/";
   static String details = "/details";
+  static String checkout = "/checkout";
 }

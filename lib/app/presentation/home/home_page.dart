@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:ct_micro_commons_ds/ct_micro_commons_ds.dart';
 import 'package:ct_micro_app_help_center/app/presentation/help_center_widget/help_center_widget.dart';
 import 'package:ct_micro_commons_dependencies/ct_micro_commons_dependencies.dart';
-import 'package:ct_micro_commons_shared/shared/domain/models/dto/app_dto.dart';
+import 'package:ct_micro_commons_shared/ct_micro_commons_shared.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -162,24 +162,41 @@ class ItemWidget extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(3.88),
-                          color: const Color(0xff007dfa),
-                        ),
-                        padding: const EdgeInsets.all(9),
-                        child: Text(
-                          "Saiba mais",
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontSize: 10.67,
-                            fontWeight: FontWeight.w600,
+                      if (appDto.hasAccess)
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3.88),
+                            color: const Color(0xff8f8f8f),
+                          ),
+                          padding: const EdgeInsets.all(9),
+                          child: Text(
+                            "Comprado",
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 10.67,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        )
+                      else
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3.88),
+                            color: const Color(0xff007dfa),
+                          ),
+                          padding: const EdgeInsets.all(9),
+                          child: Text(
+                            "Saiba mais",
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 10.67,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                      ),
                       const SizedBox(height: 3),
                       Text(
-                        "R\$ ${appDto.amount.toStringAsFixed(2).replaceAll(",", "").replaceAll(".", ",")}",
+                        appDto.amount.toString().currency(),
                         textAlign: TextAlign.right,
                         style: GoogleFonts.poppins(
                           color: const Color(0xff007dfa),

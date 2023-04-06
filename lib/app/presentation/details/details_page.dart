@@ -1,10 +1,11 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'package:ct_micro_app_marketplace/app/presentation/details/details_controller.dart';
 import 'package:ct_micro_app_marketplace/app/presentation/home/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:ct_micro_commons_ds/ct_micro_commons_ds.dart';
 import 'package:ct_micro_commons_dependencies/ct_micro_commons_dependencies.dart';
-import 'package:ct_micro_commons_shared/shared/domain/models/dto/app_dto.dart';
+import 'package:ct_micro_commons_shared/ct_micro_commons_shared.dart';
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({
@@ -19,13 +20,18 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  final HomeController controller = Modular.get<HomeController>();
+  final HomeController homeController = Modular.get<HomeController>();
+  final controller = Modular.get<DetailsController>();
   late AppDto appDto;
+  late bool hasRelease = true;
 
   @override
   void initState() {
     super.initState();
-    appDto = controller.getDetails(widget.id);
+    appDto = homeController.getDetails(widget.id);
+    if (appDto.releases == null || (appDto.releases ?? []).isEmpty) {
+      hasRelease = false;
+    }
   }
 
   @override
@@ -73,6 +79,14 @@ class _DetailsPageState extends State<DetailsPage> {
               fontSize: 15,
             ),
           ),
+          const SizedBox(height: 10),
+          Text(
+            "Distribuído por: ${appDto.distributor}",
+            style: const TextStyle(
+              color: Color(0xff8f8f8f),
+              fontSize: 16,
+            ),
+          ),
           const SizedBox(height: 40),
           const Text(
             "Sobre este app",
@@ -100,13 +114,22 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
           ),
           const SizedBox(height: 5),
-          Text(
-            appDto.releases?.first.details ?? '--',
-            style: const TextStyle(
-              color: Color(0xff8f8f8f),
-              fontSize: 16,
+          if (!hasRelease)
+            const Text(
+              "-",
+              style: TextStyle(
+                color: Color(0xff8f8f8f),
+                fontSize: 16,
+              ),
+            )
+          else
+            Text(
+              appDto.releases!.first.details,
+              style: const TextStyle(
+                color: Color(0xff8f8f8f),
+                fontSize: 16,
+              ),
             ),
-          ),
           const SizedBox(height: 40),
           const Text(
             "Atualizado em",
@@ -117,13 +140,22 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
           ),
           const SizedBox(height: 5),
-          Text(
-            appDto.releases?.first.createdAt ?? '--',
-            style: const TextStyle(
-              color: Color(0xff8f8f8f),
-              fontSize: 16,
+          if (!hasRelease)
+            const Text(
+              "-",
+              style: TextStyle(
+                color: Color(0xff8f8f8f),
+                fontSize: 16,
+              ),
+            )
+          else
+            Text(
+              appDto.updatedAt.formatDateTimePtBr(),
+              style: const TextStyle(
+                color: Color(0xff8f8f8f),
+                fontSize: 16,
+              ),
             ),
-          ),
           const SizedBox(height: 40),
           const Text(
             "Últimas atualizações",
@@ -134,16 +166,25 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
           ),
           const SizedBox(height: 5),
-          Text(
-            (appDto.releases ?? [])
-                .map((e) => "v${e.version}\n${e.details}")
-                .toList()
-                .join('\n\n'),
-            style: const TextStyle(
-              color: Color(0xff8f8f8f),
-              fontSize: 16,
+          if (!hasRelease)
+            const Text(
+              "Nenhuma atualização",
+              style: TextStyle(
+                color: Color(0xff8f8f8f),
+                fontSize: 16,
+              ),
+            )
+          else
+            Text(
+              appDto.releases!
+                  .map((e) => "v${e.version}\n${e.details}")
+                  .toList()
+                  .join('\n\n'),
+              style: const TextStyle(
+                color: Color(0xff8f8f8f),
+                fontSize: 16,
+              ),
             ),
-          ),
         ],
       ),
     );
@@ -157,13 +198,6 @@ class _DetailsPageState extends State<DetailsPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Distribuído por: ${appDto.distributor}",
-              style: const TextStyle(
-                color: Color(0xff8f8f8f),
-                fontSize: 16,
-              ),
-            ),
             Image.asset(
               '/assets/images/system_page.png',
               package: 'ct_micro_commons_shared',
@@ -174,23 +208,30 @@ class _DetailsPageState extends State<DetailsPage> {
               children: [
                 Expanded(
                   flex: 2,
-                  child: CuiaButtons.elevated(
-                    "Adquirir",
-                    loading: false,
-                    onTap: () {},
-                  ),
+                  child: appDto.hasAccess
+                      ? CuiaButtons.elevated(
+                          "Acessar",
+                          loading: false,
+                          onTap: () => controller.accessApp(appDto),
+                        )
+                      : CuiaButtons.elevated(
+                          "Adquirir",
+                          loading: false,
+                          onTap: () => controller.buyApp(context, appDto.id),
+                        ),
                 ),
-                const Expanded(
-                  child: Text(
-                    "R\$ 99.999,99",
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                      color: Color(0xff007dfa),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                if (!appDto.hasAccess)
+                  Expanded(
+                    child: Text(
+                      appDto.amount.toString().currency(),
+                      textAlign: TextAlign.right,
+                      style: const TextStyle(
+                        color: Color(0xff007dfa),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                )
+                  )
               ],
             ),
           ],
