@@ -1,7 +1,8 @@
 // ignore_for_file: depend_on_referenced_packages
 
 import 'package:ct_micro_app_marketplace/app/marketplace_routers.dart';
-import 'package:ct_micro_app_marketplace/app/presentation/checkout/checkout_page.dart';
+import 'package:ct_micro_app_marketplace/app/presentation/cart/cart_controller.dart';
+import 'package:ct_micro_app_marketplace/app/presentation/cart/cart_page.dart';
 import 'package:ct_micro_app_marketplace/app/presentation/details/details_controller.dart';
 import 'package:ct_micro_app_marketplace/app/presentation/details/details_page.dart';
 import 'package:ct_micro_app_marketplace/app/presentation/home/home_controller.dart';
@@ -14,6 +15,7 @@ class MarketplaceModule extends Module {
     // Controllers
     $HomeController,
     $DetailsController,
+    $CartController,
   ];
 
   @override
@@ -29,8 +31,8 @@ class MarketplaceModule extends Module {
       transition: TransitionType.noTransition,
     ),
     ChildRoute(
-      RoutersName.checkout,
-      child: (_, args) => const CheckoutPage(),
+      RoutersName.myCart,
+      child: (_, args) => const CartPage(),
       transition: TransitionType.noTransition,
     ),
   ];
