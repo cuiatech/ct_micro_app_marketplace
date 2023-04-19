@@ -1,5 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'package:ct_micro_app_marketplace/app/marketplace_routers.dart';
 import 'package:ct_micro_app_marketplace/app/presentation/cart/cart_controller.dart';
 import 'package:ct_micro_app_marketplace/app/presentation/cart/cart_page.dart';

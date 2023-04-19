@@ -1,5 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages, must_be_immutable, use_build_context_synchronously
-
 import 'package:ct_micro_app_marketplace/app/marketplace_routers.dart';
 import 'package:ct_micro_app_marketplace/app/presentation/home/home_controller.dart';
 import 'package:ct_micro_app_marketplace/app/presentation/home/widgets/body_list.dart';
@@ -196,7 +194,10 @@ class ItemWidget extends StatelessWidget {
                         ),
                       const SizedBox(height: 3),
                       Text(
-                        appDto.amount.toString().currency(),
+                        (appDto.appUnit!.isNotEmpty
+                                ? appDto.appUnit!.first.price!
+                                : '0')
+                            .currency(),
                         textAlign: TextAlign.right,
                         style: GoogleFonts.poppins(
                           color: const Color(0xff007dfa),

@@ -1,5 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'package:ct_micro_app_marketplace/app/presentation/cart/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:ct_micro_commons_ds/ct_micro_commons_ds.dart';
@@ -252,9 +250,7 @@ class _CartPageState extends State<CartPage> {
             children: List.generate(controller.orderItemList.length, (index) {
               var data = controller.orderItemList[index];
               return _cartItem(
-                title: data.name ?? '',
-                price: data.amount.toString().currency(),
-                quantity: data.quantity ?? 0,
+                data: data,
                 maxQuantity: 99,
                 onChanged: (value) {
                   controller.updateQuantity(index, value ?? 1);
@@ -269,11 +265,8 @@ class _CartPageState extends State<CartPage> {
   }
 
   Widget _cartItem({
-    required String title,
-    required String price,
-    required int quantity,
-    int? maxQuantity,
-    Widget? image,
+    required OrderItemDto data,
+    int maxQuantity = 100,
     Function(int?)? onChanged,
   }) {
     return Column(
@@ -282,8 +275,8 @@ class _CartPageState extends State<CartPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (image != null)
-              image
+            if (data.app?.imageUrl != null)
+              Image.network(data.app!.imageUrl, width: 117, height: 97)
             else
               Image.asset(
                 '/assets/images/system_page.png',
@@ -306,7 +299,7 @@ class _CartPageState extends State<CartPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              title,
+                              data.name ?? '',
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -314,7 +307,7 @@ class _CartPageState extends State<CartPage> {
                             ),
                             const SizedBox(height: 5),
                             Text(
-                              price.currency(),
+                              data.price.toString().currency(),
                               style: const TextStyle(
                                 color: Color(0xff8f8f8f),
                                 fontSize: 14,
@@ -324,9 +317,9 @@ class _CartPageState extends State<CartPage> {
                             Row(
                               children: [
                                 DropdownButton(
-                                  value: quantity,
+                                  value: data.quantity,
                                   items: List.generate(
-                                    maxQuantity ?? 1,
+                                    maxQuantity,
                                     (i) => DropdownMenuItem(
                                       value: i + 1,
                                       child: SizedBox(
@@ -352,7 +345,7 @@ class _CartPageState extends State<CartPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              price.currency(),
+                              data.price.toString().currency(),
                               textAlign: TextAlign.right,
                               style: const TextStyle(
                                 color: Colors.black,

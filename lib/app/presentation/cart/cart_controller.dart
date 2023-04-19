@@ -1,5 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'package:ct_micro_commons_core_app/app/domain/usecases/get_cart_list_usecase.dart';
 import 'package:ct_micro_commons_shared/ct_micro_commons_shared.dart';
 import 'package:flutter_modular/flutter_modular.dart';

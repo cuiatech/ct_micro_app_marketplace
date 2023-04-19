@@ -1,5 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'package:ct_micro_app_marketplace/app/presentation/details/details_controller.dart';
 import 'package:ct_micro_app_marketplace/app/presentation/home/home_controller.dart';
 import 'package:flutter/material.dart';
@@ -223,7 +221,10 @@ class _DetailsPageState extends State<DetailsPage> {
                 if (!appDto.hasAccess)
                   Expanded(
                     child: Text(
-                      appDto.amount.toString().currency(),
+                      (appDto.appUnit!.isNotEmpty
+                              ? appDto.appUnit!.first.price!
+                              : '0')
+                          .currency(),
                       textAlign: TextAlign.right,
                       style: const TextStyle(
                         color: Color(0xff007dfa),

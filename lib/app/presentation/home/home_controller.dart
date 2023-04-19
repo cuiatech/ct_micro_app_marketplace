@@ -1,5 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'package:ct_micro_commons_core_app/app/domain/usecases/get_all_apps_usecase.dart';
 import 'package:ct_micro_commons_dependencies/ct_micro_commons_dependencies.dart';
 import 'package:ct_micro_commons_shared/shared/domain/models/dto/app_dto.dart';
