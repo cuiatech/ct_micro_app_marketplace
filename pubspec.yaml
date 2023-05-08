@@ -13,35 +13,29 @@ dependencies:
 
 dependency_overrides:
   ct_micro_app_help_center:
-    path: ../ct_micro_app_help_center
-    # git:
-    #   url: "https://github.com/cuiatech/ct_micro_app_help_center.git"
-    #   ref: "master"
+    git:
+      url: "https://github.com/cuiatech/ct_micro_app_help_center.git"
+      ref: "master"
   ct_micro_commons_dependencies:
-    path: ../ct_micro_commons_dependencies
-    # git:
-    #   url: "https://github.com/cuiatech/ct_micro_commons_dependencies.git"
-    #   ref: "master"
+    git:
+      url: "https://github.com/cuiatech/ct_micro_commons_dependencies.git"
+      ref: "master"
   ct_micro_commons_shared:
-    path: ../ct_micro_commons_shared
-    # git:
-    #   url: "https://github.com/cuiatech/ct_micro_commons_shared.git"
-    #   ref: "master"
+    git:
+      url: "https://github.com/cuiatech/ct_micro_commons_shared.git"
+      ref: "master"
   ct_micro_commons_ds:
-    path: ../ct_micro_commons_ds
-    # git:
-    #   url: "https://github.com/cuiatech/ct_micro_commons_ds.git"
-    #   ref: "master"
+    git:
+      url: "https://github.com/cuiatech/ct_micro_commons_ds.git"
+      ref: "master"
   ct_micro_commons_auth:
-    path: ../ct_micro_commons_auth
-    # git:
-    #   url: "https://github.com/cuiatech/ct_micro_commons_auth.git"
-    #   ref: "master"
+    git:
+      url: "https://github.com/cuiatech/ct_micro_commons_auth.git"
+      ref: "master"
   ct_micro_commons_core_app:
-    path: ../ct_micro_commons_core_app
-    # git:
-    #   url: "https://github.com/cuiatech/ct_micro_commons_core_app.git"
-    #   ref: "master"
+    git:
+      url: "https://github.com/cuiatech/ct_micro_commons_core_app.git"
+      ref: "master"
 
 dev_dependencies:
   flutter_test:
